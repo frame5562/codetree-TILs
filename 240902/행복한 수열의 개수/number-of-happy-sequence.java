@@ -19,6 +19,9 @@ public class Main {
         }
 
         /* 행복한 수열 찾기 */
+        if(n == 1){
+            System.out.println(2);
+        }else{
 
         // 가로로만 탐색하기
         for(int i=0; i<n; i++){
@@ -58,6 +61,8 @@ public class Main {
         }
 
         System.out.println(answer);
+        }
+
 
     }
 }
