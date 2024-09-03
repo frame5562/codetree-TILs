@@ -1,18 +1,48 @@
-import java.util.Scanner;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 
-/**
-* 문제 풀이 전략
-* 1. 탐색해야할 블럭모양을 3차원 배열을 이용하여 모두 만들기
-* 2. 간단하게 검사는 0,0 시작하여 검사 불가능한 상태는 조건으로 추가해서 멈춤
-*/
 public class Main {
-    public static final int MAX_NUM = 200;
-    
-    public static int n, m;
-    public static int[][] grid = new int[MAX_NUM][MAX_NUM];
-    
-    // 가능한 모든 모양을 전부 적어줍니다.
-    public static int[][][] shapes = new int[][][]{
+	
+	public static int n, m;
+	public static int[][] grid;
+	
+	public static void main(String[] args) throws IOException {
+		
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		
+		// input 받기
+		String[] nm = br.readLine().split(" ");
+		n = Integer.parseInt(nm[0]);
+		m = Integer.parseInt(nm[1]);
+		
+		grid = new int[n][m];
+		for(int i=0; i<n; i++) {
+			String[] row = br.readLine().split(" ");
+			for(int j=0; j<m; j++) {
+				grid[i][j] = Integer.parseInt(row[j]);
+			}
+		}
+		
+		
+		// 함수로 만들어서 관리
+		int answer = 0;
+		
+		// 모든 격자의 위치에 대하여 검사
+		// 단, 범위가 벗어나더라도 함수문에서 판단하여 중단하므로, 문제가 되지 않음
+		for(int i=0; i<n; i++) {
+			for(int j=0; j<m; j++) {
+				answer = Math.max(answer, getMaxSum(i, j));
+			}
+		}
+		
+		
+		System.out.println(answer);
+	}
+
+	
+	// 표현 가능한 블럭의 모양을 모두 저장한 3차원 배열
+	public static int[][][] block = new int[][][] {
         {{1, 1, 0},
         {1, 0, 0},
         {0, 0, 0}},
@@ -38,44 +68,32 @@ public class Main {
         {1, 0, 0}},
     };
     
-    // 주어진 위치에 대하여 가능한 모든 모양을 탐색하며 최대 합을 반환합니다.
-    public static int getMaxSum(int x, int y) {
-        int maxSum = 0;
-        
-        for(int i = 0; i < 6; i++) {
-            boolean isPossible = true;
-            int sum = 0;
-            for(int dx = 0; dx < 3; dx++)
-                for(int dy = 0; dy < 3; dy++) {
-                    if(shapes[i][dx][dy] == 0) continue;
-                    if(x + dx >= n || y + dy >= m) isPossible = false;
-                    else sum += grid[x + dx][y + dy];
-                }
-    
-            if(isPossible)
-                maxSum = Math.max(maxSum, sum);
-        }
-        
-        return maxSum;
-    }
-
-    public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
-
-        n = sc.nextInt();
-        m = sc.nextInt();
-        
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < m; j++)
-                grid[i][j] = sc.nextInt();
-        
-        int ans = 0;
-        
-        // 격자의 각 위치에 대하여 탐색하여줍니다.
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < m; j++)
-                ans = Math.max(ans, getMaxSum(i, j));
-        
-        System.out.print(ans);
-    }
+	private static int getMaxSum(int x, int y) {
+		
+		int maxValue = 0;
+		
+		// for: 블럭 크기만큼 전부
+		for(int i=0; i<block.length; i++) {
+			boolean isPossible = true;
+			int sum = 0;
+			
+			for(int dx=0; dx<3; dx++) {
+				for(int dy=0; dy<3; dy++) {
+					// 0위치에 있는경우는 바로 다음 위치로
+					if(block[i][dx][dy] == 0) continue;
+					
+					// 범위를 벗어나는 경우 false
+					if(x+dx >=n || y+dy >= m) isPossible = false;
+					else sum += grid[x+dx][y+dy];
+				}
+				
+			}
+			
+			// for 끝 => 하나의 블럭 검사가 끝났다는 의미
+			if(isPossible)
+				maxValue = Math.max(maxValue, sum);
+		}
+		
+		return maxValue;
+	}
 }
