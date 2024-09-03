@@ -16,31 +16,51 @@ public class Main {
 		int N = Integer.parseInt(nt[0]); // 각 변에 있는 숫자 개수 
 		int T = Integer.parseInt(nt[1]); // 움직이는 시간
 		
-		Deque<Integer> queue = new LinkedList<>();
+		int[] l = new int[N];
+		int[] r = new int[N];
+		int[] d = new int[N];
+		
 
-		for(int i=0; i<3; i++) {
-			String[] row = br.readLine().split(" ");
-			for(int j=0; j<N; j++) {
-				queue.offer(Integer.parseInt(row[j]));
-			}
+		String[] row = br.readLine().split(" ");
+		for(int i=0; i<N; i++) l[i] = Integer.parseInt(row[i]);
+		
+		row = br.readLine().split(" ");
+		for(int i=0; i<N; i++) r[i] = Integer.parseInt(row[i]);
+		
+		row = br.readLine().split(" ");
+		for(int i=0; i<N; i++) d[i] = Integer.parseInt(row[i]);
+		
+		
+		
+		// 계산식
+		while(T-- > 0) {
+			// l 완성하기
+			int temp = l[N-1];
+			for(int i=N-1; i>=1; i--) l[i] = l[i-1];
+			l[0] = d[N-1];
+			
+			// r 완성하기
+			int temp2 = r[N-1];
+			for(int i=N-1; i>=1; i--) r[i] = r[i-1];
+			r[0] = temp;
+			
+			// d 완성하gi
+			for(int i=N-1; i>=1; i--) d[i] = d[i-1];
+			d[0] = temp2;
 		}
 				
-		// 계산식
-		for(int i=0; i<T; i++) {
-			// 마지막 요소 꺼내기
-			int temp = queue.pollLast();
-			queue.offerFirst(temp);
-		}
-		
 		
 		// 출력
-		int idx = 0;
-		for(int i=0; i<3; i++) {
-			for(int j=0; j<N; j++) {
-				System.out.print(queue.pop() + " ");
-			}
-			System.out.println();
-		}
+		for(int i=0; i<N; i++) System.out.print(l[i] + " ");
+		System.out.println();
+
+		for(int i=0; i<N; i++) System.out.print(r[i] + " ");
+		System.out.println();
+
+		for(int i=0; i<N; i++) System.out.print(d[i] + " ");
+		System.out.println();
+		
+
 		
 	}
 
