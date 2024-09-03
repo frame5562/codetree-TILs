@@ -11,11 +11,11 @@ public class Main {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		
 		String[] nt = br.readLine().split(" ");
-		int N = Integer.parseInt(nt[0]);
-		int T = Integer.parseInt(nt[1]);
+		int N = Integer.parseInt(nt[0]); // 각 변에 있는 숫자 개수 
+		int T = Integer.parseInt(nt[1]); // 움직이는 시간 
 
 		String arr = "";
-		for(int i=0; i<N; i++) {
+		for(int i=0; i<3; i++) {
 			String[] row = br.readLine().split(" ");
 			for(int j=0; j<N; j++) {
 				arr += row[j];
@@ -30,7 +30,7 @@ public class Main {
 		
 		// 출력
 		int idx = 0;
-		for(int i=0; i<N; i++) {
+		for(int i=0; i<3; i++) {
 			for(int j=0; j<N; j++) {
 				System.out.print(arr.charAt(idx++) + " ");
 			}
