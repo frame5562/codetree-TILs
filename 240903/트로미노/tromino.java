@@ -30,13 +30,18 @@ public class Main {
 		int answer = 0;
 		
 		// 1*3 블럭 (가로/세로) : 별도로 좌표 정의 필요 없음
-		for(int i=0; i<grid.length; i++) {
-			for(int j=0; j<grid[0].length-2; j++) { // -2를 하는 이유는 1*3 블러깅므로 +2만큼 초과하기때문
-				int rowSum = grid[i][j] + grid[i][j+1] + grid[i][j+2];
-				int colSum = grid[j][i] + grid[j+1][i] + grid[j+2][i];
-				answer = Math.max(answer, Math.max(rowSum, colSum));
-			}
-		}
+		for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length-2; j++) {
+                int sum = grid[i][j] + grid[i][j + 1] + grid[i][j + 2];
+                answer = Math.max(answer, sum);
+            }
+        }
+        for (int i = 0; i < grid.length-2; i++) {
+            for (int j = 0; j < grid[0].length-2; j++) {
+                int sum = grid[i][j] + grid[i + 1][j] + grid[i + 2][j];
+                answer = Math.max(answer, sum);
+            }
+        }
 
 		
 		// ㄴ 모양 블럭 : 블럭의 위치? 를 정의하고 사용하기
