@@ -1,5 +1,10 @@
 import java.util.Scanner;
 
+/**
+* 문제 풀이 전략
+* 1. 탐색해야할 블럭모양을 3차원 배열을 이용하여 모두 만들기
+* 2. 간단하게 검사는 0,0 시작하여 검사 불가능한 상태는 조건으로 추가해서 멈춤
+*/
 public class Main {
     public static final int MAX_NUM = 200;
     
