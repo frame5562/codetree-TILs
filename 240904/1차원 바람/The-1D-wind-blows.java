@@ -29,21 +29,11 @@ public class Main {
         for(int i=0; i<q; i++) {
         	String[] ld = br.readLine().split(" ");
         	int line = Integer.parseInt(ld[0])-1; // 0번째 인덱스 값을 1번째 줄로 인식해야하기 때문
-        	
-        	// 처음엔 기본으로 돌아가야 함
-    		if(ld[1].equals("R")) {
-    			// 바람방향: 왼쪽 <- 오론쪽
-    			int temp = arr[line][0];
-    			for(int j=0; j<m-1; j++) arr[line][j] = arr[line][j+1];
-    			arr[line][m-1] = temp;
-    		}else {
-    			// 바람방향: 왼쪽 -> 오른쪽
-    			int temp = arr[line][m-1];
-    			for(int j=m-1; j>0; j--) arr[line][j] = arr[line][j-1];
-    			arr[line][0] = temp;
-    		}
 
+        	// 최초 1회는 무조건 sihif 기능 수행
+        	shiftMethod(null, line, ld[1]);
 
+        	// 이후 위+아래로 이동하며 수행
         	String dirc = ld[1].equals("L") ? "R" : "L";
         	checkSameValue("up", line-1, dirc); // 위쪽검사 기준 line 을 지정 (올라갈 수록 index 는 작아짐)
         	checkSameValue("down", line+1, dirc);
@@ -60,6 +50,7 @@ public class Main {
     }
     
 
+    // 기준 row 에서 위 혹은 아래와 비교하여 전파 가능한 상태인지 확인하기
 	private static void checkSameValue(String updown, int line, String dirc) {
 
 		if(line < 0 || line >= n) return;
@@ -85,11 +76,8 @@ public class Main {
 		
 	}
 	
-
-
+	
 	private static void shiftMethod(String updown, int line, String dirc) {
-		
-		// 1. 대상 line 을 dirc 방향을 기준으로 문자열을 옮기는 작업을 한다.
 		if(dirc.equals("R")) {
 			// 바람방향: 왼쪽 <- 오론쪽
 			int temp = arr[line][0];
@@ -104,12 +92,13 @@ public class Main {
 		
 		
 		dirc = dirc.equals("L") ? "R" : "L";
-		if(updown.equals("up")) {
+		if(updown == null) {
+			return;
+		}else if(updown.equals("up")) {
 			checkSameValue(updown, line-1, dirc);
 		}else {
 			checkSameValue(updown, line+1, dirc);
 		}
-		
 	}
 
 
