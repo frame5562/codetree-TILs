@@ -13,20 +13,15 @@ public class Main {
     	
         String[] nmq = br.readLine().split(" ");
         
-        // 행렬 크기
-        n = Integer.parseInt(nmq[0]); 
-        m = Integer.parseInt(nmq[1]);
+        n = Integer.parseInt(nmq[0]); // 행렬 크기
+        m = Integer.parseInt(nmq[1]); // 행렬 크기
+        q = Integer.parseInt(nmq[2]); // 바람이 불어온 횟수
         arr = new int[n][m];
-        
-        // 바람이 불어온 횟수
-        q = Integer.parseInt(nmq[2]);
-        
+
         // 입력값 받기
         for(int i=0; i<n; i++) {
         	String[] row = br.readLine().split(" ");
-        	for(int j=0; j<m; j++) {
-        		arr[i][j] = Integer.parseInt(row[j]);
-        	}
+        	for(int j=0; j<m; j++) arr[i][j] = Integer.parseInt(row[j]);
         }
         
         
@@ -39,7 +34,7 @@ public class Main {
     		if(ld[1].equals("R")) {
     			// 바람방향: 왼쪽 <- 오론쪽
     			int temp = arr[line][0];
-    			for(int j=0; j<m-2; j++) arr[line][j] = arr[line][j+1];
+    			for(int j=0; j<m-1; j++) arr[line][j] = arr[line][j+1];
     			arr[line][m-1] = temp;
     		}else {
     			// 바람방향: 왼쪽 -> 오른쪽
@@ -47,6 +42,7 @@ public class Main {
     			for(int j=m-1; j>0; j--) arr[line][j] = arr[line][j-1];
     			arr[line][0] = temp;
     		}
+
 
         	String dirc = ld[1].equals("L") ? "R" : "L";
         	checkSameValue("up", line-1, dirc); // 위쪽검사 기준 line 을 지정 (올라갈 수록 index 는 작아짐)
