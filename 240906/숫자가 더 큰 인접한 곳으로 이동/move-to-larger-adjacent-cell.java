@@ -44,9 +44,13 @@ public class Main {
 			int nx = r + dxs[i];
 			int ny = c + dys[i];
 			
+	
 			if(cnt == 4) break;
 			
-			if(nx < 0 || ny < 0 || nx >= N || ny >= N) continue;
+			if(nx < 0 || ny < 0 || nx >= N || ny >= N) {
+				i = (i+1)%4;
+				continue;
+			}
 			
 			if(grid[r][c] < grid[nx][ny]) {
 				System.out.print(grid[nx][ny] + " ");
