@@ -33,13 +33,14 @@ public class Main {
 	}
 
 	public static void searchBigNum() {
+        int a = 0;
 		// 탐색 진행
 		int[] dxs = {-1, 1, 0, 0};
 		int[] dys = {0, 0, -1, 1};
 		int i = 0;
 		int cnt = 0; //4방향 탐색 후에도 더 큰 값을 찿지 못한 경우
 		
-		while(true) {
+		while(a < 100) {
 			
 			int nx = r + dxs[i];
 			int ny = c + dys[i];
