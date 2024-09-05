@@ -3,12 +3,12 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 
 public class Main {
-	
-	static BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-	static int r1, c1, r2, c2;
+    public static void main(String[] args) throws IOException {
 
-	public static void main(String[] args) throws IOException {
-		
+			
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		int r1, c1, r2, c2;
+
 		String[] nmq = br.readLine().split(" ");
 		int N = Integer.parseInt(nmq[0]);
 		int M = Integer.parseInt(nmq[1]);
