@@ -41,16 +41,25 @@ public class Main {
 				ny += dys[i];
 			}
 		}
+
 		
 
 		// 열(col) 을 기준으로 탐색하며 0이 발견 될 경우 상단에 있는 값을 가져오고, 그 위치에는 0으로 대입합니다.
 		for(int i=0; i<N; i++) {
-			for(int j=N-1; j>=0; j--) {
+			
+			// 새로운 임시배열 열을 생성한다.
+			int[] temp = new int[N];
+			
+			// 값이 0이 아닌 경우에만 복제한 배열에 값을 넣는다.
+			int idx = 0;
 
-				if(grid[j][i] == 0 && (j-1 >= 0)) {
-					grid[j][i] = grid[j-1][i];
-					grid[j-1][i] = 0;
-				}
+			for(int j=N-1; j>=0; j--) {
+				if(grid[j][i] != 0) temp[idx++] = grid[j][i] ;
+			}
+			
+			// 임시배열을 다시 열에 대입 한다.
+			for(int j=N-1; j>=0; j--) {
+				grid[j][i] = temp[N-j-1];
 			}
 		}
 
